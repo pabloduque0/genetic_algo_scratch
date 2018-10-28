@@ -1,3 +1,5 @@
+using Random
+
 mutable struct Entity
     real_range
     n_genes
@@ -7,23 +9,23 @@ end
 
 
 function generate_population(length, number_genes)
-    #population = Array{Entity}(length, 1)
+    population = []
     for elem in range(0, 98)
         real_value = rand(Float16, 1)[1]
         real_range_1 = rand(Float16, 1)[1] * 100
         real_range_2 = rand(Float16, 1)[1] * 100
         if real_range_1 >= real_range_2
-            generate_variables(real_range_2, real_range_1, number_genes)
+            full_range = (real_range_2, real_range_1)
+            phenotypes, genotypes = generate_variables(real_range_2, real_range_1, number_genes)
         else
-            generate_variables(real_range_1, real_range_2, number_genes)
+            full_range = (real_range_1, real_range_2)
+            phenotypes, genotypes = generate_variables(real_range_1, real_range_2, number_genes)
         end
 
-        real_range = (real_range_start, real_range_stop)
-        print(real_range)
-        #phenotype = randn()
-        #entity = Entity(real_range, number_genes)
-        #push!(population, entity)
+        entity = Entity(full_range, number_genes, phenotypes, genotypes)
+        push!(population, entity)
     end
+    return population
 end
 
 function generate_variables(real_range_start, real_range_stop, steps)
@@ -31,14 +33,28 @@ function generate_variables(real_range_start, real_range_stop, steps)
     phenotypes = []
     genotypes = []
     for element in range(0, steps)
+        binary_string = get_string_genotype(steps)
+        int_number = parse(Int, binary_string, base = 2)
+        step_size = real_range_stop - real_range_start
 
-
+        phenotype = real_range_start + (step_size*int_number)
+        push!(genotypes, binary_string)
+        push!(phenotypes, phenotype)
     end
+    return phenotypes, genotypes
+end
 
+function get_string_genotype(length)
+    bitlength = ceil(Int, log(2, length))
+    bit_array_string = bitrand(bitlength)
+    binary_array = convert(Array{Int, 1}, bit_array_string)
+    binary_string = join(binary_array, "")
+    return binary_string
 end
 
 
 population_size = 10
-number_genes =
+number_genes = 8
 
-generate_population(population_size, number_genes)
+population = generate_population(population_size, number_genes)
+print(population)
