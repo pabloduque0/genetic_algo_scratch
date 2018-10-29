@@ -9,12 +9,18 @@ mutable struct Entity
 end
 
 
-function generate_population(length, number_genes)
+function generate_population(length, number_genes, range=(0, 100))
     population = []
     for elem in range(0, 98)
-        real_value = rand(Float16, 1)[1]
-        real_range_1 = rand(Float16, 1)[1] * 100
-        real_range_2 = rand(Float16, 1)[1] * 100
+        if range[0] > 0
+            real_range_1 = rand(Float16, 1)[1] * 100
+            real_range_2 = rand(Float16, 1)[1] * 100
+        else
+            real_range_1 = (rand(Float16, 1)[1] * (range[0]*2)) - range[0]
+            real_range_2 = (rand(Float16, 1)[1] * (range[1]*2)) - range[1]
+        end
+        
+
         if real_range_1 >= real_range_2
             full_range = (real_range_2, real_range_1)
             phenotypes, genotypes = generate_variables(real_range_2, real_range_1, number_genes)
@@ -64,6 +70,7 @@ end
 
 population_size = 10
 number_genes = 8
+variable_range = (-10, 10)
 
-population = generate_population(population_size, number_genes)
+population = generate_population(population_size, number_genes, variable_range)
 print(population)
