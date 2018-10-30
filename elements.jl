@@ -9,17 +9,17 @@ mutable struct Entity
 end
 
 
-function generate_population(length, number_genes, range=(0, 100))
+function generate_population(length, number_genes, variable_range=(0, 100))
     population = []
     for elem in range(0, 98)
-        if range[0] > 0
+        if variable_range[1] > 0
             real_range_1 = rand(Float16, 1)[1] * 100
             real_range_2 = rand(Float16, 1)[1] * 100
         else
-            real_range_1 = (rand(Float16, 1)[1] * (range[0]*2)) - range[0]
-            real_range_2 = (rand(Float16, 1)[1] * (range[1]*2)) - range[1]
+            real_range_1 = (rand(Float16, 1)[1] * (variable_range[1]*2)) - variable_range[1]
+            real_range_2 = (rand(Float16, 1)[1] * (variable_range[2]*2)) - variable_range[2]
         end
-        
+
 
         if real_range_1 >= real_range_2
             full_range = (real_range_2, real_range_1)
