@@ -11,7 +11,9 @@ function selection_by_rank(population, s=1.5)
         probability = ((2-s) / μ) + ((2 * index)(s-1))((μ * (μ - 1)))
         random_num = rand(Float16, 1)[1]
         if random_numb <= probability
-            push!(elected_parents, entity)
+            push!(selected_parents, entity)
     end
+
+    return selected_parents
 
 end
