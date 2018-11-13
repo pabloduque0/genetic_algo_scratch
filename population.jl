@@ -1,3 +1,5 @@
+module Population
+
 using Random
 
 mutable struct Entity
@@ -64,6 +66,7 @@ function get_string_genotype(length)
     return binary_string
 end
 
+end
 
 population_size = 10
 number_genes = 8
