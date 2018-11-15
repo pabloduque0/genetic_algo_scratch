@@ -35,7 +35,6 @@ module Crossover
 
         offspring1 = copy(parent1)
         offspring2 = copy(parent2)
-        println(typeof(parent1), parent1.genotype)
         offspring1.genotype = ensemble_two_segments(point1, point2, parent1, parent2)
         offspring2.genotype = ensemble_two_segments(point1, point2, parent2, parent1)
 
@@ -49,7 +48,6 @@ module Crossover
             first_segment = gene1[1:point1]
             second_segment = gene2[point1:point2]
             third_segment = gene1[point2:end]
-            println(typeof(first_segment[1]), typeof(second_segment[1]), typeof(third_segment[1]))
             offspring_genotype = first_segment * second_segment * third_segment
             push!(all_genotypes, offspring_genotype)
         end

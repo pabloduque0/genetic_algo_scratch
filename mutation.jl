@@ -13,7 +13,6 @@ module Mutation
     function binary_mutation(orig_genotype)
 
         probability = 1 / length(orig_genotype)
-        println(probability)
         mutated_genotype = ""
         for (index, bit) in enumerate(orig_genotype)
             selector = rand(Float16, 1)[1]
