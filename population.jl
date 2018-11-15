@@ -12,6 +12,12 @@ module Population
     end
 
 
+    Base.copy(a::Entity) = Entity(a.real_range, a.n_genes,
+                                        a.phenotype, a.genotype,
+                                        a.fitness, a.age)
+
+    #Base.copy(x::T) where T = T([getfield(x, k) for k ∈ fieldnames(T)]...)
+
     function generate_population(_length, number_genes, range=(0, 100))
         population = []
         for elem = 1:_length-1
