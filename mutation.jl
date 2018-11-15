@@ -1,33 +1,51 @@
+module Mutation
 
-function binary_mutation!(entity)
-
-    probability = 1 / length(entity.phenotype)
-    println(probability)
-    mutated_phenotype = ""
-    for (index, bit) in enumerate(entity.phenotype)
-        selector = rand(Float16, 1)[1]
-        if selector < probability
-            if bit == '0'
-                mutated_phenotype *= '1'
-            else
-                mutated_phenotype *= '0'
+    function perform_all_mutations!(population, mutation_func)
+        for entity in population
+            mutated_genotypes = []
+            for genotype in entity.genotype
+                push!(mutated_genotypes, binary_mutation(genotype))
             end
-        else
-            mutated_phenotype *= bit
+            entity.genotype = mutated_genotypes
         end
     end
-    entity.phenotype = mutated_phenotype
+
+    function binary_mutation(orig_genotype)
+
+        probability = 1 / length(orig_genotype)
+        println(probability)
+        mutated_genotype = ""
+        for (index, bit) in enumerate(orig_genotype)
+            selector = rand(Float16, 1)[1]
+            if selector < probability
+                if bit == '0'
+                    mutated_genotype *= '1'
+                else
+                    mutated_genotype *= '0'
+                end
+            else
+                mutated_genotype *= bit
+            end
+        end
+        orig_genotype = mutated_genotype
+    end
+
+    """
+    function test_binary_mutation()
+        mutable struct Entity
+            real_range
+            n_genes
+            phenotype
+            genotype
+            fitness
+        end
+
+        entity = Entity(nothing, nothing, "1000101110101011100", nothing, nothing)
+        binary_mutation!(entity)
+
+        println("Before: ", "1000101110101011100", "\n After: ", entity.phenotype)
+
+    end
+    """
+
 end
-
-mutable struct Entity
-    real_range
-    n_genes
-    phenotype
-    genotype
-    fitness
-end
-
-entity = Entity(nothing, nothing, "1000101110101011100", nothing, nothing)
-binary_mutation!(entity)
-
-println("Before: ", "1000101110101011100", "\n After: ", entity.phenotype)
