@@ -1,19 +1,28 @@
+module ParentSelection
 
-function selection_by_rank(population, s=1.5)
-    if s > 2 || s < 1
-        throw(ArgumentError("argument must be nonnegative"))
-    end
-    μ = length(population)
-    selected_parents = []
-    for (index, entity) in enumerate(population)
-        index -= 1
+    function selection_by_rank(population, s=1.5)
+        if s > 2 || s < 1
+            throw(ArgumentError("s argument must be in range [1, 2]"))
+        end
+        μ = length(population)
+        selected_parents = []
         sorted_populations = sort(population, by=i->i.fitness)
-        probability = ((2-s) / μ) + ((2 * index)(s-1))((μ * (μ - 1)))
-        random_num = rand(Float16, 1)[1]
-        if random_numb <= probability
-            push!(selected_parents, entity)
-    end
 
-    return selected_parents
+        while length(selected_parents) != μ
+            for (index, entity) in enumerate(sorted_populations)
+                if length(selected_parents) == μ
+                    break
+                end
+                probability = ((2-s) / μ) + (((2 * (index-1))*(s-1)) / ((μ * (μ - 1))))
+                random_num = rand(Float16, 1)[1]
+                if random_num <= probability
+                    push!(selected_parents, entity)
+                end
+            end
+        end
+
+        return selected_parents
+
+    end
 
 end
