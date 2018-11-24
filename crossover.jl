@@ -22,17 +22,17 @@ module Crossover
             throw(ArgumentError("Both parents binary strings must have the same
             length"))
         end
-        point1 = rand(1:length(parent1.genotype[1])-1)
+        max_len = length(parent1.genotype[1])-1
+        point1 = rand(2:max_len)
         point2 = point1
         while point2 == point1
-            point2 = rand(1:length(parent1.genotype[1])-1)
+            point2 = rand(2:max_len)
         end
         if point1 > point2
             aux = point1
             point1 = point2
             point2 = aux
         end
-
         offspring1 = copy(parent1)
         offspring2 = copy(parent2)
         offspring1.genotype = ensemble_two_segments(point1, point2, parent1, parent2)
@@ -45,10 +45,18 @@ module Crossover
 
         all_genotypes = []
         for (gene1, gene2) in zip(parent1.genotype, parent2.genotype)
-            first_segment = gene1[1:point1]
-            second_segment = gene2[point1:point2]
+            #println("length: ", length(gene1), " ", length(gene2), "  num2: ", point2)
+            first_segment = gene1[1:point1-1]
+            second_segment = gene2[point1:point2-1]
             third_segment = gene1[point2:end]
             offspring_genotype = first_segment * second_segment * third_segment
+            if length(gene1) != length(offspring_genotype) || length(gene2) != length(offspring_genotype)
+                mesage = "Lengths output error in mutation. Len gene 1: " *
+                string(length(gene1)) * " len gene 2: " * string(length(gene2)) * " len offspring:  " *
+                string(length(offspring_genotype)) * " point1 : " * string(point1) * "  point2: " *
+                string(point2)
+                throw(ArgumentError(mesage))
+            end
             push!(all_genotypes, offspring_genotype)
         end
         return all_genotypes
