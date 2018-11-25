@@ -13,7 +13,6 @@ module SurvivalSelection
 
     function select_single_best(population)
         fittest = sort(population, by=i->i.fitness)[end]
-        print("FITTEST: ", fittest)
         return fittest
     end
 

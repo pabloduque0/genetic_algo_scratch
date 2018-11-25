@@ -45,7 +45,6 @@ module Crossover
 
         all_genotypes = []
         for (gene1, gene2) in zip(parent1.genotype, parent2.genotype)
-            #println("length: ", length(gene1), " ", length(gene2), "  num2: ", point2)
             first_segment = gene1[1:point1-1]
             second_segment = gene2[point1:point2-1]
             third_segment = gene1[point2:end]
