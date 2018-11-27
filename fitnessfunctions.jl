@@ -14,7 +14,7 @@ module FitnessFunctions
         end
 
     end
-    
+
     function sphere(variables)
         _sum = 0
         for element in variables

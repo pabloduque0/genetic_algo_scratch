@@ -31,9 +31,9 @@ for gen in 1:num_generations
     global population = offspring
     #println("Final: ", population[1])
     fitness_values = [e.fitness for e in population]
-    println(fitness_evaluation)
+    #println(fitness_evaluation)
     push!(fitness_evaluation, mean(fitness_values))
 
 end
-print(fitness_evaluation)
-plot(1:num_generations, fitness_evaluation)
+#print(fitness_evaluation)
+#plot(1:num_generations, fitness_evaluation)
