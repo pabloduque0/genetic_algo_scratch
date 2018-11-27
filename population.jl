@@ -22,8 +22,8 @@ module Population
         population = []
         for elem = 1:_length-1
             if range[1] > 0
-                real_range_1 = rand(Float16, 1)[1] * 100
-                real_range_2 = rand(Float16, 1)[1] * 100
+                real_range_1 = rand(Float16, 1)[1] * range[2]
+                real_range_2 = rand(Float16, 1)[1] * range[2]
             else
                 real_range_1 = (rand(Float16, 1)[1] * (range[1]*2)) - range[1]
                 real_range_2 = (rand(Float16, 1)[1] * (range[2]*2)) - range[2]
