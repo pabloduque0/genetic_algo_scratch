@@ -7,7 +7,7 @@ module Population
         n_genes
         phenotype
         genotype
-        fitness
+        fitness::Float64
         age
     end
 
@@ -41,7 +41,7 @@ module Population
                             number_genes,
                             phenotypes,
                             genotypes,
-                            nothing,
+                            NaN64,
                             1)
             push!(population, entity)
         end
