@@ -55,8 +55,7 @@ module Population
         for element = 0:steps
             binary_string = get_string_genotype(steps)
             int_number = parse(Int, binary_string, base = 2)
-            step_size = real_range_stop - real_range_start
-
+            step_size = (real_range_stop - real_range_start) / steps
             phenotype = real_range_start + (step_size*int_number)
             push!(genotypes, binary_string)
             push!(phenotypes, phenotype)
