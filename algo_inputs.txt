@@ -1,0 +1,5 @@
+num_generations=50
+population_size=100
+number_genes=64
+variable_range_low=-500
+variable_range_high=500
