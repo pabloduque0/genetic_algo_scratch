@@ -11,7 +11,6 @@ module Crossover
             (offspring1, offspring2) = xover_func(parent1, parent2)
             push!(all_offspring, offspring1)
             push!(all_offspring, offspring2)
-
         end
         return all_offspring
     end
@@ -60,16 +59,4 @@ module Crossover
         end
         return all_genotypes
     end
-
 end  # module Crossover
-
-"""
-function test_xover()
-    parent1 = "1111111111111"
-    parent2 = "0000000000000"
-
-    offspring = two_point_xover(parent1, parent2)
-    println(offspring)
-
-end
-"""
