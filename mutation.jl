@@ -1,13 +1,17 @@
 module Mutation
 
     function perform_all_mutations!(population, mutation_func)
+        differences = []
         for entity in population
             mutated_genotypes = []
             for genotype in entity.genotype
                 push!(mutated_genotypes, binary_mutation(genotype))
             end
+            difference = hamming_distance(mutated_genotypes, entity.genotype)
+            push!(differences, difference)
             entity.genotype = mutated_genotypes
         end
+        return differences
     end
 
     function binary_mutation(orig_genotype)
@@ -29,22 +33,14 @@ module Mutation
         orig_genotype = mutated_genotype
     end
 
-    """
-    function test_binary_mutation()
-        mutable struct Entity
-            real_range
-            n_genes
-            phenotype
-            genotype
-            fitness
+    function hamming_distance(mutated, original)
+        difference = 0
+        for (gene1, gene2) in zip(mutated, original)
+            for (ch1, ch2) in zip(gene1, gene2)
+                difference += ch1 != ch2
+            end
+            difference += abs(length(gene1) - length(gene2))
         end
-
-        entity = Entity(nothing, nothing, "1000101110101011100", nothing, nothing)
-        binary_mutation!(entity)
-
-        println("Before: ", "1000101110101011100", "\n After: ", entity.phenotype)
-
+        return difference
     end
-    """
-
 end
