@@ -16,7 +16,7 @@ module FitnessFunctions
     end
 
     function sphere(variables)
-        _sum = 0
+        _sum = Float64(0)
         for element in variables
             _sum += element^2
         end
