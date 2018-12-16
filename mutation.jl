@@ -9,6 +9,7 @@ module Mutation
             end
             difference = hamming_distance(mutated_genotypes, entity.genotype)
             push!(differences, difference)
+            reset_phenotypes!(entity, mutated_genotypes)
             entity.genotype = mutated_genotypes
         end
         return differences
@@ -16,7 +17,7 @@ module Mutation
 
     function binary_mutation(orig_genotype)
 
-        probability = 1 / length(orig_genotype)
+        probability = (1 / length(orig_genotype)) * 0.000001
         mutated_genotype = ""
         for (index, bit) in enumerate(orig_genotype)
             selector = rand(Float16, 1)[1]
@@ -42,5 +43,18 @@ module Mutation
             difference += abs(length(gene1) - length(gene2))
         end
         return difference
+    end
+
+    function reset_phenotypes!(entity, mutated_genotypes)
+        _range = entity.real_range
+        step = (_range[2] - _range[1]) / entity.n_genes
+        new_phenotypes = []
+        for genotype in mutated_genotypes
+            decimal = parse(Int, genotype, base = 2)
+            new_phen = _range[1] + (decimal * step)
+            push!(new_phenotypes, new_phen)
+        end
+        entity.phenotype = new_phenotypes
+
     end
 end
