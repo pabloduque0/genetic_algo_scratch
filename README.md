@@ -19,11 +19,11 @@ Graphs on the left show fitness average on population and on the right fitness m
 
 ###### Schwefel function
 
-![](/harddrive/home/pablo/Google Drive/UNED/Computacion_Evolutiva/Actividades/Actividad_1/genetic_algo_scratch/resources/fitness_mean_schwefel.png)
+![](resources/fitness_mean_schwefel.png)
 
 ###### Sphere function
 
-![fitness_mean_schwefel_gray](/harddrive/home/pablo/Google Drive/UNED/Computacion_Evolutiva/Actividades/Actividad_1/genetic_algo_scratch/resources/fitness_mean_sphere.png)
+![](resources/fitness_mean_sphere.png)
 
 ##### Demo
 
