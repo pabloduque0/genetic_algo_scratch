@@ -8,11 +8,16 @@ include("./utils.jl")
 using .Crossover, .FitnessFunctions, .Mutation, .ParentSelection, .Population, .SurvivalSelection, .Utils
 using Statistics, Plots
 
-num_generations,  population_size, number_genes, variable_range = Utils.get_algo_params()
+num_generations,  population_size, number_genes, variable_range, function_param = Utils.get_algo_params()
 
 population = Population.generate_population(population_size, number_genes,
-                                            variable_range, true)
-fitness_function = FitnessFunctions.schwefel
+                                            variable_range, false)
+fitness_function = nothing
+if function_param == "sphere"
+    fitness_function = FitnessFunctions.sphere
+elseif function_param == "schwefel"
+    fitness_function = FitnessFunctions.schwefel
+end
 
 fitness_evaluation_mean = []
 fitness_evaluation_best = []
@@ -34,6 +39,3 @@ for gen in 1:num_generations
 end
 
 plot!(1:num_generations, [fitness_evaluation_mean, fitness_evaluation_best], lw=3, layout=(1, 2))
-#plot(1:num_generations, mutations_levels, lw=3)
-
-#savefig("/harddrive/home/pablo/Google Drive/UNED/Computacion_Evolutiva/Actividades/Actividad_1/genetic_algo_scratch/fitness_mean_schewel.png")
