@@ -1,5 +1,6 @@
-num_generations=50
+num_generations=25
 population_size=100
 number_genes=64
 variable_range_low=-500
 variable_range_high=500
+function_param=schwefel
