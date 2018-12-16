@@ -6,6 +6,7 @@ module Utils
         file_info = split(file_info, "\n")
         num_generations,  population_size, number_genes, variable_range = nothing, nothing, nothing, nothing
         variable_range_low, variable_range_high = nothing, nothing
+        function_param = nothing
 
         # Could be more efficient
         for param in file_info
@@ -20,6 +21,8 @@ module Utils
                 variable_range_high = parse(Int, param[2])
             elseif param[1] == "variable_range_low"
                 variable_range_low = parse(Int, param[2])
+            elseif param[1] == "function_param"
+                function_param = param[2]
             end
         end
         variable_range = (variable_range_low, variable_range_high)
@@ -28,7 +31,7 @@ module Utils
             throw(ArgumentError("Missing parameters in algot_inputs.txt."))
         end
 
-        return num_generations,  population_size, number_genes, variable_range
+        return num_generations,  population_size, number_genes, variable_range, function_param
     end
 
 
